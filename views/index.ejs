@@ -1,0 +1,51 @@
+<%- include("header.ejs") -%>
+    <section>
+      
+      <h1><%=workType%></h1>
+      <div class="card">
+      
+
+        <%if(workType=="Home"){%>
+          <form action="/delete" method="post">
+
+            <ul>
+              <% for (w of work){ %>
+                <li><input type="checkbox" name="<%=w._id%>" onchange="this.form.submit()">
+                  <label for='s<%=work.indexOf(w)%>'> <%= w.work %></label></li>
+                  <% } %>
+            </ul>
+          </form>
+          <div class="card-footer">
+            <form action="/" method="post">
+                <input required autocomplete="off" class="addmore" type="text" name="task"  placeholder="New Item">
+                <button type="submit" class="add"><i class="bi bi-plus-lg"></i></button>
+            </form>
+            <%}%>
+
+            <%if(workType=="Work"){%>
+              <form action="/work/delete" method="post">
+
+                <ul>
+                  <% for (w of work){ %>
+                    <li><input type="checkbox" name="<%=w._id%>" onchange="this.form.submit()">
+                      <label for='s<%=work.indexOf(w)%>'> <%= w.work %></label></li>
+                      <% } %>
+                </ul>
+              </form>
+            <form action="/work" method="post">
+                <input required autocomplete="off" class="addmore" type="text" name="task"  placeholder="New Item">
+                <button type="submit" class="add"><i class="bi bi-plus-lg"></i></button>
+            </form>
+          </div>
+          <%}%>
+        </div>
+      </div>
+    </section>
+
+    <script>
+        $('input').click(function(){
+           
+            $('[for='+$(this).attr('id')+']').toggleClass('cross')
+        })
+    </script>
+<%- include("footer.ejs") -%>
